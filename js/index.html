@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A*</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="https://fontmeme.com/images/Raising-CaneS-FONT.png">
+</head>
+<body>
+    <h1>A-Star</h1>
+    <div class="container" id="cont">
+</div>
+<div style="margin: 20px;">
+<button onclick="aStar(getBoard());">Start</button>
+<button onclick="submitXY();getBoard();">Clear Path</button>
+<button onclick="clearWalls();getBoard();">Clear Walls</button>
+<input placeholder="Base" id="base"></input>
+<input placeholder="height" id="height"></input>
+<button onclick="submitXY();">Submit</button>
+<button type="checkbox"onclick="numbTog()">Show Numbers</button></div>
+<script src="js/astar.js"></script>
+Made By: Matteo Bir and Maximilian Radlicz
+</body>
+</html>

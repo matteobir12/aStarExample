@@ -1,0 +1,72 @@
+body{
+    margin: 0;
+}
+
+h1{
+    text-align: center;
+}
+
+div{
+    padding: 0;
+    vertical-align:top;
+}
+
+.row div{
+    display: inline-block;
+    /* height: 8vw;
+    width: 8vw; */
+    border: .15vw solid gray;
+    
+    margin: 0;
+}
+
+.row{
+    display: block;
+   
+}
+
+.container{
+    margin-left: 30px;
+    display: inline-block;
+    /* height: 98vw;
+    width: 60vw; */
+}
+
+.start{
+    background-color: blue !important;
+}
+
+.end{
+    background-color: tomato !important;
+}
+
+.wall{
+    background-color: black !important;
+}
+
+.box{
+    background-color: lightgreen;
+}
+.path{
+    background-color: lightyellow;
+}
+.fpath{
+    background-color: yellow;
+}
+.Sbox:hover{
+    background-color: lightblue !important;
+}
+.Ebox:hover{
+    background-color: lightcoral !important;
+}
+@keyframes change{
+    from {background-color: lightgreen ;
+    }
+    to {background-color: lightyellow ;
+        }
+  }
+.pulse{
+    animation-name: change;
+    animation-duration: 2s;
+}
+  
