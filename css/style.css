@@ -63,10 +63,22 @@ div{
     from {background-color: lightgreen ;
     }
     to {background-color: lightyellow ;
-        }
-  }
-.pulse{
-    animation-name: change;
-    animation-duration: 2s;
+    }
 }
   
+@keyframes fchange{
+    from {background-color: lightyellow ;
+    }
+    to {background-color: yellow ;
+    }
+}
+
+.pulse{
+    animation-name: change;
+    animation-duration: 1s;
+}
+
+.fpulse{
+    animation-name: fchange;
+    animation-duration: 2s;
+}  

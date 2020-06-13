@@ -9,6 +9,7 @@ var allowdrag = false;
 var lastedit=0;
 var interval;
 var hehe = false;
+var hehe2 = false;
 
 class Box {
     constructor(pos,g,h,f,cond,discby,id){
@@ -118,7 +119,7 @@ function getBoard(){
 
 function aStar(board)
 {
-    var t0 = performance.now()
+    t0 = performance.now()
     locked = true;
     path = [];
     loop = true;
@@ -150,7 +151,9 @@ function aStar(board)
                     document.getElementById(near[i].id).innerHTML = String(near[i].f.toFixed(2)) + " " + near[i].g.toFixed(2) +" "+ near[i].h.toFixed(2) + " " + near[i].discby; 
                 }
                 if(JSON.stringify(near[i].pos) == JSON.stringify(endbox.pos)){
-                    selectpath(path,board);
+                    t1 = performance.now();
+                    console.log((t1 - t0) + " ms");
+                    selectpath(path,board, idd);
                     return path, board;
                 }
             }
@@ -201,9 +204,8 @@ function aStar(board)
             //document.writeln(next);
             if (next+1 == endnum)
             {
-                t1 = performance.now()
-                selectpath(path,board);
-                return path, board, t1 - t0;
+                // selectpath(path,board);
+                // return path, board;
             }
             else{
                 // document.getElementById(String(next+1)).className = 'path';
@@ -226,20 +228,23 @@ function aStar(board)
 function bum(n, i){
     interval = setTimeout(function(){
         document.getElementById(String(n+1)).className = 'pulse path';
-    }, 100* i);
+    }, 20* i);
 }
 
 
-function selectpath(path, board){
-    var boxpath = [];
-    var nextpath = board[endnum-1].discby;
-    for(var i =0;i<path.length; i++){
-        document.getElementById(String(nextpath)).className = 'fpath';
-        nextpath = board[nextpath-1].discby;
-        if(nextpath == startnum){
-            break;
+function selectpath(path, board, t){
+    setTimeout(function(){
+        var boxpath = [];
+        var nextpath = board[endnum-1].discby;
+        for(var i =0;i<path.length; i++){
+            document.getElementById(String(nextpath)).className = 'fpulse fpath';
+            nextpath = board[nextpath-1].discby;
+            if(nextpath == startnum){
+                break;
+            }
         }
-    }
+    }, (20*t) + 1000)
+
 }
 
 function main(){
@@ -290,7 +295,11 @@ function createBoard() {
         document.getElementById("row "+row).appendChild(div);
     }
     if(hehe){
-    wallboxes = [1,4,5,6,8,70,73,75,77,139,140,142,143,144,146,147];}
+        wallboxes = [1,4,5,6,8,70,73,75,77,139,140,142,143,144,146,147];
+    }
+    if(hehe2){
+        wallboxes = [4245,4665,5084,5504,5924,6344,6764,7184,8024,8444,9284,9704,10544,11384,11804,12224,13064,13903,14323,14743,15583,16423,16843,17683,18523,18943,19363,19783,20203,20623,21463,21883,22303,22723,23143,23563,23983,24403,24823,7605,7185,5514,5933,5932,6351,6350,6349,6348,6767,5515,5516,5517,5518,5519,5520,5521,5522,5942,5943,5944,5945,6366,6367,6787,6788,6789,6790,7210,7211,7212,7632,7633,8053,8054,8474,8475,8896,9316,9737,10157,10578,11418,11838,12258,12678,13099,13519,13939,14359,14779,15199,15619,16039,16459,16879,17299,17719,18139,18559,18979,19399,19819,20239,20659,21079,21499,21919,22339,22759,23179,23178,23598,24018,24438,24858,6819,7239,7659,8079,8499,8919,9339,9759,10179,10599,11019,11439,11859,12279,12699,13118,13538,13958,14378,14798,15218,15638,16058,16478,16898,17318,17738,18158,18578,19418,19838,20259,20679,21099,21519,21939,22359,22779,23199,23619,24039,24459,24879,25299,3879,7281,7280,6860,6859,6858,6857,6437,6436,6435,6434,6433,6432,6431,6430,6429,6428,6427,6007,6006,6005,6424,6423,6422,6841,7260,7679,8099,8098,8518,8938,8937,9777,10197,10616,11036,11456,11876,12296,12716,12715,13135,13555,13975,14395,15235,16074,16914,17334,17754,18594,19435,20275,21115,21116,21536,21957,22377,22378,22798,22799,23219,23220,23221,23642,24063,24064,24485,24486,24487,24908,24909,24910,24911,24912,24494,24495,24496,24076,24077,24078,24079,23659,23660,23661,23241,23242,22822,22402,15695,15276,15696,15697,15277,15278,15279,15280,15281,15282,15283,15284,15285,15286,15287,15288,15289,15290,15710,15711,15712,15713,15714,15715,15716,15717,15718,15719,15720,15721,15301,15302,15303,15304,15305,15306,15307,15308,14888,14889,14469,14049,13629,13628,13208,12788,12367,11947,11526,11105,10264,10263,9843,9423,9002,9001,8580,8159,7738,7317,6896,6895,6473,6472,6050,6048,6046,6044,6043,6461,6460,7299,7718,8138,8557,8977,9396,9816,10235,10655,11913,12753,13172,13592,14012,14432,15272,15692,16113,16533,17374,17794,18214,18635,19055,19896,20317,20737,21578,21999,22420,22841,23262,23263,23684,23685,24107,24109,24111,24112,24113,24114,24115,24116,24117,24118,24119,24120,24121,24122,23703,23284,23285,22865,22866,22447,22027,22028,22029];
+    }
 }
 
 
@@ -357,6 +366,9 @@ function submitXY() {
     if(base==69&&height>2){
         hehe=true;
     }
+    if(base==420 && height == 69){
+        hehe2=true;
+    }
     // wallboxes = [];
     main()
     
@@ -382,7 +394,7 @@ function numbTog() {
 
 
 function clearWalls(){
-    wallboxes = []
+    wallboxes = [];
 }
 
 
