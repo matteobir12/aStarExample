@@ -1,1 +1,1 @@
-start /js/index.html
+start js/index.html
