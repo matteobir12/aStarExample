@@ -192,47 +192,40 @@ function aStar(board) {
 
             }
 
-            // else if (board[i].f == lowestF) {
-            // if (idd == 0) {
-            //     lowestHi = i;
-            // }
-
-            // if (board[i].h < board[lowestHi].h) {
-
-            //     lowestHi = i;
-
-            // }
-            // else if (lowestH == board[i].h) {
-            //     next = i;
-            // }
-
         }
         var a = [];
         for (var i = 0; i < board.length; i++) {
-            if (i == 197) {
-                console.log("198h " + board[i].h);
-                console.log("198f " + board[i].f);
+            flag = 0;
+            if (path.length > 0) {
+                for (var j = 0; j < path.length; j++) {
+
+                    if (path[j] == i) {
+                        flag = 1;
+                    }
+                }
             }
-            if (Math.trunc(board[i].f, 2) == Math.trunc(lowestF, 2)) {
+            if (flag == 1) {
+                continue;
+
+            }
+            if (i == 711) {
+                console.log(Math.round(board[i].h * 100) / 100);
+                console.log(Math.round(lowestHi * 100) / 100);
+            }
+            if (Math.round(board[i].f * 100) / 100 == Math.round(lowestF * 100) / 100) {
                 a.push(board[i]);
-                console.log(board[i]);
             }
-
         }
-        lowestHi = a[0].id - 1;
-
 
         if (a[1]) {
+            lowestHi = a[1].id - 1;
             for (var i = 0; i < a.length; i++) {
-                console.log(a[i].h)
-                if (board[lowestHi].h > a[i].h) {
+
+                if (Math.round(board[lowestHi].h * 100) / 100 > Math.round(a[i].h * 100) / 100 && i != currentnum) {
                     lowestHi = a[i].id - 1;
-                    //console.log(board[lowestHi].h);
-                    //console.log("changed h");
                 }
             }
             next = lowestHi;
-            console.log("using lowest h");
         }
 
         idd++;
@@ -248,7 +241,7 @@ function aStar(board) {
             bum(next, idd);
         }
 
-        if (idd == 100000) {
+        if (idd == 1000) {
             // selectpath(path,board);
             return path, board;
         }
