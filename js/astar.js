@@ -135,7 +135,7 @@ function aStar(board) {
     currentnum = startnum - 1;
     var idd = 0;
     while (loop) {
-        // setTimeout(function(){
+
 
         near = boxesNear(board[currentnum], board);
         for (var i = 0; i < near.length; i++) {
@@ -144,12 +144,7 @@ function aStar(board) {
                 board[near[i].id - 1].g = distance(board[currentnum].pos, near[i].pos) + board[currentnum].g;
                 board[near[i].id - 1].discby = currentnum + 1;
             }
-            // else{
-            //     board[near[i]].g = distance(board[currentnum].pos, board[near[i]].pos) + board[currentnum].g;
-            //     board[near[i]].discby = currentnum + 1;
-            // }
-            //////// document.writeln(near[i]);
-            //////// document.writeln(board[near[i]].g);
+
             board[near[i].id - 1].h = distance(near[i].pos, endbox.pos);
             board[near[i].id - 1].f = near[i].g + near[i].h;
             if (displaynumbs) {
@@ -168,7 +163,7 @@ function aStar(board) {
         lowestfarr = [];
         for (var i = 0; i < board.length; i++) {
             if (board[i].discby == 10000) {
-                // console.log("hit");
+
                 continue;
             }
             flag = 0;
@@ -181,7 +176,7 @@ function aStar(board) {
                 }
             }
             if (flag == 1) {
-                // document.writeln("flagged:" +i);
+
                 continue;
 
             }
@@ -205,6 +200,7 @@ function aStar(board) {
                 }
             }
             if (flag == 1) {
+
                 continue;
 
             }
@@ -231,22 +227,21 @@ function aStar(board) {
         idd++;
         currentnum = next;
         path.push(next);
-        //document.writeln(next);
+
         if (next + 1 == endnum) {
-            // selectpath(path,board);
-            // return path, board;
+
         }
         else {
-            // document.getElementById(String(next+1)).className = 'path';
+
             bum(next, idd);
         }
 
-        if (idd == 1000) {
-            // selectpath(path,board);
+        if (idd == 100000) {
+
             return path, board;
         }
 
-        // }, 50);
+
 
     }
 
