@@ -1,8 +1,8 @@
-var startnum = 23;
-var endnum = 14;
+var startnum = 100;
+var endnum = 758;
 var wallboxes = [];
-var base = 7;
-var height = 4;
+var base = 50;
+var height = 25;
 var displaynumbs = false;
 var locked = false;
 var allowdrag = false;
@@ -131,11 +131,12 @@ function aStar(board) {
     loop = true;
     startbox = board[startnum - 1];
     endbox = board[endnum - 1];
-    var lowestF = 100000, next, lowestH = 100000, flag = 0;
+    var lowestF = 100000, next, lowestHi = 100000, flag = 0;
     currentnum = startnum - 1;
     var idd = 0;
     while (loop) {
         // setTimeout(function(){
+
         near = boxesNear(board[currentnum], board);
         for (var i = 0; i < near.length; i++) {
 
@@ -163,7 +164,8 @@ function aStar(board) {
         }
 
         lowestF = 100000;
-        lowestH = 100000;
+        lowestHi;
+        lowestfarr = [];
         for (var i = 0; i < board.length; i++) {
             if (board[i].discby == 10000) {
                 // console.log("hit");
@@ -185,17 +187,52 @@ function aStar(board) {
             }
             if (board[i].f < lowestF) {
                 lowestF = board[i].f;
+                lowestfarr.push(board[i]);
                 next = i;
+
             }
-            else if (board[i].f == lowestF) {
-                if (board[i].h < lowestH) {
-                    lowestH = board[i].h;
-                    next = i;
-                }
-                else if (lowestH == board[i].h) {
-                    next = i;
+
+            // else if (board[i].f == lowestF) {
+            // if (idd == 0) {
+            //     lowestHi = i;
+            // }
+
+            // if (board[i].h < board[lowestHi].h) {
+
+            //     lowestHi = i;
+
+            // }
+            // else if (lowestH == board[i].h) {
+            //     next = i;
+            // }
+
+        }
+        var a = [];
+        for (var i = 0; i < board.length; i++) {
+            if (i == 197) {
+                console.log("198h " + board[i].h);
+                console.log("198f " + board[i].f);
+            }
+            if (Math.trunc(board[i].f, 2) == Math.trunc(lowestF, 2)) {
+                a.push(board[i]);
+                console.log(board[i]);
+            }
+
+        }
+        lowestHi = a[0].id - 1;
+
+
+        if (a[1]) {
+            for (var i = 0; i < a.length; i++) {
+                console.log(a[i].h)
+                if (board[lowestHi].h > a[i].h) {
+                    lowestHi = a[i].id - 1;
+                    //console.log(board[lowestHi].h);
+                    //console.log("changed h");
                 }
             }
+            next = lowestHi;
+            console.log("using lowest h");
         }
 
         idd++;
@@ -211,7 +248,7 @@ function aStar(board) {
             bum(next, idd);
         }
 
-        if (idd == 10000) {
+        if (idd == 100000) {
             // selectpath(path,board);
             return path, board;
         }
