@@ -1,8 +1,8 @@
 var startnum = 100;
 var endnum = 758;
 var wallboxes = [];
-var base = 50;
-var height = 25;
+var base = 100;
+var height = 40;
 var displaynumbs = false;
 var locked = false;
 var allowdrag = false;
@@ -10,6 +10,7 @@ var lastedit = 0;
 var interval;
 var hehe = false;
 var hehe2 = false;
+var borders = false;
 
 class Box {
     constructor(pos, g, h, f, cond, discby, id) {
@@ -284,11 +285,19 @@ function createBoard() {
         var div = document.createElement("div");
         div.id = "row " + (i + 1);
         div.className = "row";
+        var plus = 0
+        if (borders) {
+            if (base >= 50) {
+                plus = .1;
+            } else {
+                plus = .3;
+            }
+        }
         if (base >= 50) {
 
-            div.style.height = ((80 / base) + .1) + "vw";
+            div.style.height = ((80 / base)) + "vw";
         } else {
-            div.style.height = ((80 / base) + .3) + "vw";
+            div.style.height = ((80 / base)) + "vw";
         }
         document.getElementById("cont").appendChild(div);
     }
@@ -310,10 +319,14 @@ function createBoard() {
         div.setAttribute("onmouseup", "dragg(-1);");
         if (i % base == 0 && i != 0) {
             row++;
-        }
-        if (base >= 50) {
+        } if (borders) {
+            if (base >= 50) {
 
-            div.style.border = ".05vw solid gray";
+                div.style.border = ".05vw solid gray";
+
+            } else {
+                div.style.border = ".15vw solid gray";
+            }
         }
         document.getElementById("row " + row).appendChild(div);
     }
@@ -451,6 +464,9 @@ function dragg(id) {
         }
     }
 }
-
+function showboarders() {
+    borders = true;
+    main();
+}
 
 main();
